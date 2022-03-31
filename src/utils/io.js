@@ -2,15 +2,35 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-03-31 17:36:21
+ * @LastTime: 2022-03-31 19:17:55
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
 
 /**
+ * @param {RegExp} pattern 用来匹配最后一行的正则表达式
+ * @param {Number} input_box_index 输入框索引，用来定位输入框
+ * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @description: 阻塞直到输入框中最后一行出现匹配的文本
+ */
+export function untilInput(
+    pattern,
+    input_box_index = 0,
+    package_name = "com.tencent.mm"
+) {
+    let result;
+    while (result === null) {
+        let widget = getWidget(input_box_index, package_name);
+        let lines = widget.text().split("\n");
+        result = pattern.exec(lines[lines.length - 1]);
+    }
+}
+
+/**
  * @param {String} msg 提示信息（不能为空，使用英文符号时需要转义）
  * @param {String} end_sign 结束标记，当输入框中最后一行等于结束标记时返回输入内容（默认为零宽回车）
  * @param {Number} input_box_index 输入框索引，用来定位输入框
+ * @param {String} package_name 要检测的软件包名（默认为微信）
  * @return {String} 用户输入的数据
  * @description: 显示提示信息并获取用户输入
  */
@@ -45,8 +65,9 @@ export function getInput(
  * @param {String} msg 要打印的信息
  * @param {String} end_with 信息的结尾（默认换行符结尾）
  * @param {Number} input_box_index 输入框索引，用来定位输入框
+ * @param {String} package_name 要检测的软件包名（默认为微信）
  * @return {Boolean} 输入是否成功
- * @description: 用来在文本框末尾添加字符串
+ * @description: 用来在输入框末尾添加字符串
  */
 export function print(
     msg,
@@ -60,10 +81,10 @@ export function print(
 }
 
 /**
- * @param {Number} input_box_index 屏幕上文本框的索引值
- * @param {String} package_name 软件包名
- * @return {UiObject} 文本框控件
- * @description: 阻塞直到成功获取文本框
+ * @param {Number} input_box_index 屏幕上输入框的索引值
+ * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @return {UiObject} 输入框控件
+ * @description: 阻塞直到成功获取输入框
  */
 function getWidget(
     input_box_index = 0,
