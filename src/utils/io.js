@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-01 11:00:14
+ * @LastTime: 2022-04-02 19:21:56
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
@@ -59,6 +59,7 @@ export function untilInput(
 
 /**
  * @param {String} msg 提示信息（不能为空，使用英文符号时需要转义）
+ * @param {String} extra_str 额外的附加信息（可以手动删除不影响匹配）
  * @param {String} end_sign 结束标记，当输入框中最后一行等于结束标记时返回输入内容（默认为零宽回车）
  * @param {Number} input_box_index 输入框索引，用来定位输入框
  * @param {String} package_name 要检测的软件包名（默认为微信）
@@ -67,12 +68,17 @@ export function untilInput(
  */
 export function getInput(
     msg = ">",
+    extra_str = "",
     end_sign = "\u200b",
     input_box_index = 0,
     package_name = "com.tencent.mm"
 ) {
     // 输出提示信息
-    print(msg, "", input_box_index);
+    print(
+        msg=`${msg}${extra_str}`,
+        end_with="",
+        input_box_index=input_box_index
+    );
 
     // 等待输入
     while(true) {
