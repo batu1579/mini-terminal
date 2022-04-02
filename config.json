@@ -1,0 +1,19 @@
+[
+  {
+    "name": "CODE_STYLE",
+    "type": "select",
+    "label": "执行状态样式",
+    "options": {
+      "text": "文本",
+      "sign": "符号",
+      "face": "表情"
+    },
+    "validation": "required",
+    "help": "用来显示上一次运行的指令状态"
+  },
+  {
+    "name": "SHOW_CONSOLE",
+    "type": "checkbox",
+    "label": "显示控制台"
+  }
+]

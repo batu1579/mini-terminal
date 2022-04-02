@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 16:09:50
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-02 16:31:32
+ * @LastTime: 2022-04-02 18:07:32
  * @FilePath: \\src\\global_exception.js
  * @Description: 全局异常类
  */
@@ -30,8 +30,8 @@ export class PermissionObtainingFailure extends BasePermissionException {
 }
 
 export class ArgumentException extends BaseException {
-    constructor(argument_name, message) {
-        super("Argument Exception", `${argument_name} ${message}`);
+    constructor(message) {
+        super("Argument Exception", `${message}`);
         this.name = 'ArgumentException';
     }
 }
