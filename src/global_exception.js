@@ -2,16 +2,15 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 16:09:50
  * @LastEditor: BATU1579
- * @LastTime: 2022-03-13 14:00:14
+ * @LastTime: 2022-04-02 16:31:32
  * @FilePath: \\src\\global_exception.js
  * @Description: 全局异常类
  */
 import { EVENT } from "./global"
 
-export class BaseException {
+export class BaseException extends Error {
     constructor(exception_type, message) {
-        this.message = `[${exception_type}] ${message}`;
-        EVENT.emit("ERROR", this.message);
+        super(`[${exception_type}] ${message}`);
         this.name = 'BaseException';
     }
 }
@@ -31,22 +30,8 @@ export class PermissionObtainingFailure extends BasePermissionException {
 }
 
 export class ArgumentException extends BaseException {
-    constructor(message) {
-        super("Argument Exception", message);
-        this.name = 'Argument Exception';
-    }
-}
-
-class StatementException extends BaseException {
-    constructor(message) {
-        super("Statement Exception", message);
-        this.name = "StatementException";
-    }
-}
-
-export class FormatException extends StatementException {
-    constructor(message = "The statement format is incorrect.") {
-        super(`${message} The format should be: <command> [<arguments>]`);
-        this.name = "FormatException";
+    constructor(argument_name, message) {
+        super("Argument Exception", `${argument_name} ${message}`);
+        this.name = 'ArgumentException';
     }
 }
