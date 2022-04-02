@@ -2,10 +2,41 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-03-31 19:17:55
+ * @LastTime: 2022-04-01 11:00:14
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
+
+/**
+ * @param {Number} line_number 要删除的行数（从1开始计数）
+ * @param {Number} input_box_index 输入框索引，用来定位输入框
+ * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @description: 删除文本框中的最后几行
+ */
+export function delete_lines(line_number = 1, input_box_index = 0, package_name = "com.tencent.mm") {
+    let widget = getWidget(input_box_index, package_name);
+    print(
+        widget.text()
+            .split("\n")
+            .slice(0, line_number * -1)
+            .join("\n")
+    );
+}
+
+/**
+ * @param {Number} input_box_index 输入框索引，用来定位输入框
+ * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @return {Boolean} 是否清除成功
+ * @description: 清空输入框的全部文本
+ */
+export function clearScreen(input_box_index = 0, package_name = "com.tencent.mm") {
+    getWidget(input_box_index, package_name);
+    if (setText(input_box_index, "")) {
+        return getWidget(input_box_index, package_name).text() === "";
+    } else {
+        return false;
+    }
+}
 
 /**
  * @param {RegExp} pattern 用来匹配最后一行的正则表达式
