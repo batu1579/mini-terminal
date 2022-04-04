@@ -2,10 +2,15 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 13:58:21
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 22:35:33
+ * @LastTime: 2022-04-04 23:31:38
  * @FilePath: \\src\\cmd\\operation.js
  * @Description: 指令
  */
+
+import { VERSION } from "rollup";
+import { printStr } from "../utils/io";
+
+
 
 // {
 //     code: 0,
@@ -23,3 +28,7 @@ operations["exit"] = function() {
         message: "exit"
     };
 }
+
+operations["version"] = function() {
+    printStr(`Current version: ${VERSION}`);
+};
