@@ -76,6 +76,24 @@ export function getInput(
     // 输出提示信息
     printStr(`${msg}${extra_str}`, "", input_box_index);
 
+    // 转义信息中的正则元字符
+    msg = msg
+        .replace(/\\/, "\\\\")
+        .replace(/\(/, "\\(")
+        .replace(/\)/, "\\)")
+        .replace(/\[/, "\\[")
+        .replace(/\]/, "\\]")
+        .replace(/\{/, "\\{")
+        .replace(/\}/, "\\}")
+        .replace(/\./, "\\.}")
+        .replace(/\+/, "\\+")
+        .replace(/\*/, "\\*")
+        .replace(/\?/, "\\?")
+        .replace(/\|/, "\\|")
+        .replace(/\$/, "\\$")
+        .replace(/\^/, "\\^");
+
+    let pattern = new RegExp(`(?:${msg}\s?)((?:(?!${msg}).|\n)*?)(?=\s?${end_sign}$)`, "g");
 
     // 等待输入
     while(true) {
@@ -84,14 +102,13 @@ export function getInput(
             .text()
             .split("\n");
         if (lines[lines.length - 1] === end_sign) {
-            let pattern = new RegExp(`(?:${msg}\s?)((?:(?!${msg}).|\n)+?)(?=\s?${end_sign}$)`, "g");
             let result = pattern.exec(widget.text());
             if (result) {
-                return result[1].slice(0, -1);
+                return result[1].slice(0, -1 * end_sign.length);
             }
         }
         // 防止查找过于频繁
-        sleep(100);
+        sleep(200);
     }
 }
 
