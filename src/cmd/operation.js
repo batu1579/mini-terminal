@@ -2,12 +2,12 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 13:58:21
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 23:31:38
+ * @LastTime: 2022-04-04 23:36:11
  * @FilePath: \\src\\cmd\\operation.js
  * @Description: 指令
  */
 
-import { VERSION } from "rollup";
+import { VERSION } from "../global";
 import { printStr } from "../utils/io";
 
 
