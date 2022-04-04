@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 22:06:30
+ * @LastTime: 2022-04-04 22:24:25
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -75,7 +75,7 @@ export class Terminal {
         let params = result[2] === undefined ? null : result[2];
 
         // 排除操作历史记录的两个指令
-        if (!(dont_record_list.includes(command))) {
+        if (dont_record_list.indexOf(command) === -1) {
             // 添加到指令历史记录
             HISTORY.push(statement);
         }
