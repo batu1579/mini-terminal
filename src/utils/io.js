@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 16:36:04
+ * @LastTime: 2022-04-04 22:30:07
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
@@ -137,7 +137,7 @@ export function printStr(
  * @return {UiObject} 输入框控件
  * @description: 阻塞直到成功获取输入框
  */
-function getWidget(
+export function getWidget(
     input_box_index = 0,
     package_name = "com.tencent.mm"
 ) {
