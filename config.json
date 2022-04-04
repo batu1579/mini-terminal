@@ -1,5 +1,24 @@
 [
   {
+    "name": "APP_NAME",
+    "label": "软件名称",
+    "placeholder": "微信",
+    "help": "用来限定终端输出的软件",
+    "validation": "required"
+  },{
+    "name": "INPUT_BOX_INDEX",
+    "label": "输入框索引值",
+    "placeholder": "0",
+    "help": "用来限定终端输出文本框",
+    "validation": "required"
+  },{
+    "name": "HISTORY_SIZE",
+    "label": "历史指令数量",
+    "placeholder": "100",
+    "help": "用来限制历史指令的数量",
+    "validation": "required"
+  },
+  {
     "name": "CODE_STYLE",
     "type": "select",
     "label": "执行状态样式",

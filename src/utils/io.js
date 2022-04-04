@@ -2,18 +2,24 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 22:30:07
+ * @LastTime: 2022-04-04 23:18:14
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
 
+import { PACKAGE_NAME, INPUT_BOX_INDEX } from "../global";
+
 /**
  * @param {Number} line_number 要删除的行数（从1开始计数）
  * @param {Number} input_box_index 输入框索引，用来定位输入框
- * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @param {String} package_name 要检测的软件包名
  * @description: 删除文本框中的最后几行
  */
-export function delete_lines(line_number = 1, input_box_index = 0, package_name = "com.tencent.mm") {
+export function delete_lines(
+    line_number = 1,
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
+) {
     let widget = getWidget(input_box_index, package_name);
     printStr(
         widget.text()
@@ -25,11 +31,14 @@ export function delete_lines(line_number = 1, input_box_index = 0, package_name 
 
 /**
  * @param {Number} input_box_index 输入框索引，用来定位输入框
- * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @param {String} package_name 要检测的软件包名
  * @return {Boolean} 是否清除成功
  * @description: 清空输入框的全部文本
  */
-export function clearScreen(input_box_index = 0, package_name = "com.tencent.mm") {
+export function clearScreen(
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
+) {
     getWidget(input_box_index, package_name);
     if (setText(input_box_index, "")) {
         return getWidget(input_box_index, package_name).text() === "";
@@ -41,13 +50,13 @@ export function clearScreen(input_box_index = 0, package_name = "com.tencent.mm"
 /**
  * @param {RegExp} pattern 用来匹配最后一行的正则表达式
  * @param {Number} input_box_index 输入框索引，用来定位输入框
- * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @param {String} package_name 要检测的软件包名
  * @description: 阻塞直到输入框中最后一行出现匹配的文本
  */
 export function untilInput(
     pattern,
-    input_box_index = 0,
-    package_name = "com.tencent.mm"
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
 ) {
     let result;
     while (result === null) {
@@ -62,7 +71,7 @@ export function untilInput(
  * @param {String} extra_str 额外的附加信息（可以手动删除不影响匹配）
  * @param {String} end_sign 结束标记，当输入框中最后一行等于结束标记时返回输入内容（默认为零宽回车）
  * @param {Number} input_box_index 输入框索引，用来定位输入框
- * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @param {String} package_name 要检测的软件包名
  * @return {String} 用户输入的数据
  * @description: 显示提示信息并获取用户输入
  */
@@ -70,8 +79,8 @@ export function getInput(
     msg = ">",
     extra_str = "",
     end_sign = "\u200b",
-    input_box_index = 0,
-    package_name = "com.tencent.mm"
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
 ) {
     // 输出提示信息
     printStr(`${msg}${extra_str}`, "", input_box_index);
@@ -96,7 +105,7 @@ export function getInput(
     let pattern = new RegExp(`(?:${msg}\s?)((?:(?!${msg}).|\n)*?)(?=\s?${end_sign}$)`, "g");
 
     // 等待输入
-    while(true) {
+    while (true) {
         let widget = getWidget(input_box_index, package_name);
         let lines = widget
             .text()
@@ -116,15 +125,15 @@ export function getInput(
  * @param {String} msg 要打印的信息
  * @param {String} end_with 信息的结尾（默认换行符结尾）
  * @param {Number} input_box_index 输入框索引，用来定位输入框
- * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @param {String} package_name 要检测的软件包名
  * @return {Boolean} 输入是否成功
  * @description: 用来在输入框末尾添加字符串
  */
 export function printStr(
     msg,
     end_with = "\n",
-    input_box_index = 0,
-    package_name = "com.tencent.mm"
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
 ) {
     getWidget(input_box_index, package_name);
     // 向输入框最后添加
@@ -133,13 +142,13 @@ export function printStr(
 
 /**
  * @param {Number} input_box_index 屏幕上输入框的索引值
- * @param {String} package_name 要检测的软件包名（默认为微信）
+ * @param {String} package_name 要检测的软件包名
  * @return {UiObject} 输入框控件
  * @description: 阻塞直到成功获取输入框
  */
 export function getWidget(
-    input_box_index = 0,
-    package_name = "com.tencent.mm"
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
 ) {
     while (true) {
         let collection = className("EditText")
