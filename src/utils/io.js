@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-02 19:21:56
+ * @LastTime: 2022-04-04 16:36:04
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
@@ -15,7 +15,7 @@
  */
 export function delete_lines(line_number = 1, input_box_index = 0, package_name = "com.tencent.mm") {
     let widget = getWidget(input_box_index, package_name);
-    print(
+    printStr(
         widget.text()
             .split("\n")
             .slice(0, line_number * -1)
@@ -74,11 +74,8 @@ export function getInput(
     package_name = "com.tencent.mm"
 ) {
     // 输出提示信息
-    print(
-        msg=`${msg}${extra_str}`,
-        end_with="",
-        input_box_index=input_box_index
-    );
+    printStr(`${msg}${extra_str}`, "", input_box_index);
+
 
     // 等待输入
     while(true) {
@@ -106,7 +103,7 @@ export function getInput(
  * @return {Boolean} 输入是否成功
  * @description: 用来在输入框末尾添加字符串
  */
-export function print(
+export function printStr(
     msg,
     end_with = "\n",
     input_box_index = 0,
