@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 13:58:21
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 23:36:11
+ * @LastTime: 2022-04-06 17:12:00
  * @FilePath: \\src\\cmd\\operation.js
  * @Description: 指令
  */
@@ -28,7 +28,3 @@ operations["exit"] = function() {
         message: "exit"
     };
 }
-
-operations["version"] = function() {
-    printStr(`Current version: ${VERSION}`);
-};
