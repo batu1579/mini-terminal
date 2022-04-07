@@ -86,6 +86,37 @@ export class Operation {
             .filter(i => i !== undefined && i !== " " && i !== "");
     }
 
+    /**
+     * @description: 输出完整的指令帮助
+     */
+    showFullInfo() {
+        // 显示指令描述
+        printStr(`Description: ${this.operation_info.description}`);
+        // 显示指令参数
+        let args_info = [];
+        for (let key in this.operation_info.arguments) {
+            args_info.push(`  ${key} - ${this.operation_info.arguments[key]}`);
+        }
+        printStr(`Argument:\n\${args_info.join("\n")}`);
+    }
+
+    /**
+     * @param {Number} args_index 参数位置
+     * @description: 输出单个参数的帮助
+     */
+    showArgumentInfo(args_index) {
+        let args = getFunctionArguments(this.core);
+
+        if (args_index > args.length) {
+            throw new TooManyArgumentsException(args_index + 1, args.length);
+        }
+
+        let argument_name = args[args_index];
+        let argument_info = this.operation_info.arguments[argument_name];
+
+        printStr(`  ${argument_name} - ${argument_info}`);
+    }
+
     execute(args) {
         // 解析参数
         args = this.parseArgs(args);
@@ -94,6 +125,16 @@ export class Operation {
             code: 1,
             message: "show help message"
         };
+
+        // 显示指令帮助
+        if (args.indexOf("--help") !== -1 || args[0] === "-h") {
+            this.showFullInfo();
+            return state;
+        } else if (args[args.length - 1] === "-h") {
+            this.showArgumentInfo(args.length - 2);
+            return state;
+        }
+
         // 执行指令
         let result = this.core.apply(this, args);
         return result === null ? {code: 1} : result;
