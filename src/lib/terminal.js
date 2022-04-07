@@ -8,7 +8,7 @@
  */
 import { HISTORY } from '../global';
 import { state_code } from './style';
-import { operations } from '../cmd/operation';
+import { alias_lookup_table } from '../cmd/alias';
 import { dont_record_list } from '../cmd/dont_record';
 
 import { Logger } from '../utils/logger';
@@ -17,7 +17,7 @@ import { CommandNotFoundException, FormatException } from './terminal_exception'
 
 export class Terminal {
     constructor() {
-        this.logger = new Logger(`Terminal`);;
+        this.logger = new Logger(`Terminal`);
     }
 
     launch() {
@@ -67,14 +67,24 @@ export class Terminal {
             return { code: 1 };
         }
 
-        // 分解语句为（指令 + 参数）
-        let result = /^([^\s]+)(?:\s(.+))?$/.exec(statement);
+        // 分解语句为（模块 + 参数）
+        let result = /^(\S+)(?:\s(.*))?$/g.exec(statement);
         if (!result) throw new FormatException();
 
+        let modules_name = result[1];
         let command = result[1];
-        let params = result[2] === undefined ? null : result[2];
+        let params = result[2];
 
-        // 排除操作历史记录的两个指令
+        if (command in alias_lookup_table) {
+            // 用预设的语句替换别名
+            result = /^(\S+)(?:\s(.*))?$/g.exec(alias_lookup_table[command]);
+
+            if (!result) throw new FormatException();
+
+            modules_name = result[1];
+            params = `${result[2]} ${params !== undefined ? params : ''}`;
+        }
+
         if (dont_record_list.indexOf(command) === -1) {
             // 添加到指令历史记录
             HISTORY.push(statement);
