@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 21:03:08
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 23:37:08
+ * @LastTime: 2022-04-08 00:38:47
  * @FilePath: \\src\\global.js
  * @Description: 全局常量
  */
@@ -33,9 +33,9 @@ export const {
 
 // ---------------------------- Verify Argument ---------------------------------
 
-export const PACKAGE_NAME = app.getPackageName(APP_NAME);
+export const PACKAGE_NAME = getPackageName(APP_NAME);
 if (PACKAGE_NAME === null) {
-    throw new ArgumentException("No software named wechat was found");
+    throw new ArgumentException(`No software named ${APP_NAME} was found`);
 }
 
 if (!/^\d+$/.test(INPUT_BOX_INDEX) || Number(INPUT_BOX_INDEX) < 0) {
