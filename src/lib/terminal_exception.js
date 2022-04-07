@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 16:15:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-02 16:39:38
+ * @LastTime: 2022-04-07 23:19:41
  * @FilePath: \\src\\lib\\terminal_exception.js
  * @Description: 终端异常
  */
@@ -22,9 +22,19 @@ export class CommandNotFoundException extends StatementException {
     }
 }
 
+export class TooManyArgumentsException extends StatementException {
+    constructor(current_number, expected_number) {
+        super(`Too many arguments were given. Expected ${expected_number}, got ${current_number}`);
+        this.name = "TooManyArgumentsException";
+    }
+}
+
 export class FormatException extends StatementException {
-    constructor(message = "The statement format is incorrect.") {
-        super(`${message} The format should be: <command> [<arguments>]`);
+    constructor(
+        format = "<module> <operation>[ <arguments>]",
+        message = "The statement format is incorrect."
+    ) {
+        super(`${message} The format should be: ${format}`);
         this.name = "FormatException";
     }
 }

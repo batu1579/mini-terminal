@@ -2,12 +2,13 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 22:24:25
+ * @LastTime: 2022-04-08 01:26:12
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
 import { HISTORY } from '../global';
 import { state_code } from './style';
+import { modules } from '../cmd/operation';
 import { alias_lookup_table } from '../cmd/alias';
 import { dont_record_list } from '../cmd/dont_record';
 
@@ -90,9 +91,8 @@ export class Terminal {
             HISTORY.push(statement);
         }
 
-        if (command in operations) {
-            // 调用指令
-            return operations[command](params);
-        } else throw new CommandNotFoundException(command);
+        if (modules_name in modules) {
+            return modules[modules_name].execute(params.replace(/^\s+|\s+$/gm,''));
+        } else throw new CommandNotFoundException(modules_name);
     }
 }

@@ -2,11 +2,10 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 16:09:50
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-02 18:07:32
+ * @LastTime: 2022-04-08 00:32:59
  * @FilePath: \\src\\global_exception.js
  * @Description: 全局异常类
  */
-import { EVENT } from "./global"
 
 export class BaseException extends Error {
     constructor(exception_type, message) {
@@ -31,7 +30,14 @@ export class PermissionObtainingFailure extends BasePermissionException {
 
 export class ArgumentException extends BaseException {
     constructor(message) {
-        super("Argument Exception", `${message}`);
+        super("Argument Exception", message);
         this.name = 'ArgumentException';
+    }
+}
+
+export class FunctionException extends BaseException {
+    constructor(message) {
+        super("Function Exception", message);
+        this.name = 'FunctionException';
     }
 }
