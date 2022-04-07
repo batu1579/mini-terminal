@@ -4,7 +4,7 @@
   "description": "一个基于文本框的简易终端",
   "main": "index.js",
   "scripts": {
-    "build": "rollup --config --silent"
+    "build": "rollup --config"
   },
   "author": "BATU1579",
   "license": "MPL-2.0",
