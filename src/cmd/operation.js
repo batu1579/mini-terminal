@@ -11,20 +11,4 @@ import { terminal_module } from "./module/terminal";
 
 export const modules = {};
 
-
-// {
-//     code: 0,
-//     message: "",
-//     fill_command: ""
-// }
-
-export const operations = {};
-
-// 声明不需要解析的简单操作
-
-operations["exit"] = function() {
-    return {
-        code: 0,
-        message: "exit"
-    };
-}
+modules["terminal"] = terminal_module;
