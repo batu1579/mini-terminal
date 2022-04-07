@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-04 23:18:14
+ * @LastTime: 2022-04-08 02:22:00
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
@@ -48,22 +48,29 @@ export function clearScreen(
 }
 
 /**
- * @param {RegExp} pattern 用来匹配最后一行的正则表达式
+ * @param {RegExp} pattern 用来匹配的正则表达式
+ * @param {Number} match_lines 要匹配倒数第几行(从1开始，默认为1)
+ * @param {Boolean} to_new_line 是否在匹配到文本之后换行
  * @param {Number} input_box_index 输入框索引，用来定位输入框
  * @param {String} package_name 要检测的软件包名
- * @description: 阻塞直到输入框中最后一行出现匹配的文本
+ * @description: 阻塞直到输入框中倒数指定行出现匹配的文本
  */
 export function untilInput(
     pattern,
+    match_lines = 1,
+    to_new_line = true,
     input_box_index = INPUT_BOX_INDEX,
     package_name = PACKAGE_NAME
 ) {
-    let result;
+    let result = null;
     while (result === null) {
         let widget = getWidget(input_box_index, package_name);
         let lines = widget.text().split("\n");
-        result = pattern.exec(lines[lines.length - 1]);
+        result = pattern.exec(lines[lines.length - match_lines]);
+        // 防止查找过于频繁
+        sleep(200);
     }
+    if (to_new_line) printStr("");
 }
 
 /**
