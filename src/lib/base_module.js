@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-07 15:00:24
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 02:44:13
+ * @LastTime: 2022-04-08 10:46:30
  * @FilePath: \\src\\lib\\base_module.js
  * @Description: 模块基类
  */
@@ -97,7 +97,7 @@ export class Operation {
         for (let key in this.operation_info.arguments) {
             args_info.push(`  ${key} - ${this.operation_info.arguments[key]}`);
         }
-        printStr(`Argument:\n\${args_info.join("\n")}`);
+        printStr(`Argument:\n${args_info.join("\n")}`);
     }
 
     /**
