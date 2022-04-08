@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-08 11:35:18
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 15:57:21
+ * @LastTime: 2022-04-08 17:51:08
  * @FilePath: \\src\\cmd\\module\\history.js
  * @Description: 历史记录操作模块
  */
@@ -20,7 +20,7 @@ let ops = {
                 "times": "向前移动的次数，纯数字且大于0，默认为1"
             }
         },
-        (times) => {
+        (times = 1) => {
             checkNumber(times, {"gt": 0});
             HISTORY.forward(times);
             return {
@@ -38,7 +38,7 @@ let ops = {
                 "times": "向后移动的次数，纯数字且大于0，默认为1"
             }
         },
-        (times) => {
+        (times = 1) => {
             checkNumber(times, {"gt": 0});
             HISTORY.backward(times);
             return {
