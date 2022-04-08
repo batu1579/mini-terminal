@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 12:00:59
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-02 19:27:17
+ * @LastTime: 2022-04-08 11:45:01
  * @FilePath: \\src\\utils\\history.js
  * @Description: 指令历史
  */
@@ -51,7 +51,7 @@ export class History {
         }
     }
 
-    back(times = 1) {
+    backward(times = 1) {
         for (let i = 0; i < times; i++) {
             if (this.current.prev) {
                 this.current = this.current.prev;
