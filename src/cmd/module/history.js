@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-08 11:35:18
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 17:51:08
+ * @LastTime: 2022-04-08 20:27:39
  * @FilePath: \\src\\cmd\\module\\history.js
  * @Description: 历史记录操作模块
  */
@@ -59,6 +59,34 @@ let ops = {
             return {
                 code: 1,
                 message: "list all history record"
+            };
+        }
+    ),
+    "remove": new Operation(
+        {
+            "description": "删除当前指向的记录条目",
+            "arguments": {}
+        },
+        () => {
+            let statement = HISTORY.removeCurrent();
+            return {
+                code: 1,
+                message: `remove statement: ${statement}`,
+                not_record: true
+            }
+        }
+    ),
+    "clear": new Operation(
+        {
+            "description": "清空全部指令历史记录",
+            "arguments": {}
+        },
+        () => {
+            HISTORY.clearAll();
+            return {
+                code: 1,
+                message: "clear statement history",
+                not_record: true
             };
         }
     )

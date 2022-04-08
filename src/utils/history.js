@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 12:00:59
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 11:45:01
+ * @LastTime: 2022-04-08 20:46:34
  * @FilePath: \\src\\utils\\history.js
  * @Description: 指令历史
  */
@@ -32,6 +32,42 @@ export class History {
         }
 
         return to_string ? data.join("\n") : data;
+    }
+
+    removeCurrent() {
+        let data = this.current.data;
+
+        if (this.current == this.head) {
+            // 指针在链表头
+            if (this.current.prev == null && this.current.next == null) {
+                // 链表只有一个节点的时候
+                this.clearAll();
+            } else {
+                this.head = this.head.next;
+                this.head.prev = null;
+                this.current = this.head;
+            }
+        } else if (this.current.next == null) {
+            // 在指针在链表尾
+            this.current = this.current.prev;
+            this.current.next = null;
+        } else {
+            // 指针在链表中间
+            let prev = this.current.prev;
+            let next = this.current.next;
+            
+            prev.next = next;
+            next.prev = prev;
+
+            this.current = next;
+        }
+
+        return data;
+    }
+
+    clearAll() {
+        this.head = new DNode("");
+        this.current = this.head;
     }
 
     getData() {
