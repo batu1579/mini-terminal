@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 01:26:12
+ * @LastTime: 2022-04-08 15:56:12
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -86,13 +86,15 @@ export class Terminal {
             params = `${result[2]} ${params !== undefined ? params : ''}`;
         }
 
-        if (dont_record_list.indexOf(command) === -1) {
-            // 添加到指令历史记录
+        if (!(modules_name in modules)) throw new CommandNotFoundException(modules_name);
+
+        let state = modules[modules_name].execute(params.replace(/^\s+|\s+$/gm,''));
+
+        // 添加历史记录
+        if (state.not_record === true) {
             HISTORY.push(statement);
         }
 
-        if (modules_name in modules) {
-            return modules[modules_name].execute(params.replace(/^\s+|\s+$/gm,''));
-        } else throw new CommandNotFoundException(modules_name);
+        return state;
     }
 }
