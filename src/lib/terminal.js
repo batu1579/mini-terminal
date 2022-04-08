@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 15:56:12
+ * @LastTime: 2022-04-08 17:33:20
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -10,7 +10,6 @@ import { HISTORY } from '../global';
 import { state_code } from './style';
 import { modules } from '../cmd/operation';
 import { alias_lookup_table } from '../cmd/alias';
-import { dont_record_list } from '../cmd/dont_record';
 
 import { Logger } from '../utils/logger';
 import { getInput, printStr } from '../utils/io';
@@ -91,7 +90,7 @@ export class Terminal {
         let state = modules[modules_name].execute(params.replace(/^\s+|\s+$/gm,''));
 
         // 添加历史记录
-        if (state.not_record === true) {
+        if (state.not_record !== true) {
             HISTORY.push(statement);
         }
 
