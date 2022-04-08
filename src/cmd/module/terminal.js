@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-07 23:25:05
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 02:36:34
+ * @LastTime: 2022-04-08 11:05:19
  * @FilePath: \\src\\cmd\\module\\terminal.js
  * @Description: 终端指令模块
  */
@@ -70,4 +70,10 @@ let ops = {
     )
 }
 
-export const terminal_module = new Module("terminal", ops);
+export const terminal_module = new Module(
+    {
+        module_name: "terminal",
+        description: "终端基础操作模块"
+    },
+    ops
+);

@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-07 15:00:24
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 10:46:30
+ * @LastTime: 2022-04-08 11:30:56
  * @FilePath: \\src\\lib\\base_module.js
  * @Description: 模块基类
  */
@@ -16,15 +16,16 @@ import {
 
 export class Module {
     /**
-     * @param {String} 模块名称（调用时的名称）
+     * @param {Object} module_info 模块信息，要包含两个键： description 、 module_name
+     * @param {Object} ops 操作对象集合
      * @description: 模块类，用来创建新模块供操作挂载
      */
     constructor(
-        module_name = requiredArgument("module_name"),
+        module_info = requiredArgument("module_info"),
         ops = requiredArgument("ops"),
     ) {
         // 实例化模块类后调用 register 函数注册模块即可使用
-        this.module_name = module_name;
+        this.module_info = module_info;
         this.ops = ops;
     }
 
@@ -36,8 +37,30 @@ export class Module {
         let operation = result[1];
         let args = result[2] ? result[2] : "";
 
+        if (operation === "-h" || operation === "--help") {
+            printStr(`Description: ${this.module_info.description}`);
+            return {
+                code: 1,
+                message: "show module help"
+            }
+        } else if (operation === "-l" || operation === "--list") {
+            let ops_list = [];
+            for (let key in this.ops) {
+                if (this.ops[key] instanceof Module) {
+                    ops_list.push(` - ${key} ( Module )`);
+                } else {
+                    ops_list.push(` - ${key}`);
+                }
+            }
+            printStr(`${ops_list.join("\n")}`);
+            return {
+                code: 1,
+                message: "show module operation list"
+            }
+        }
+
         if (!(operation in this.ops)) {
-            throw new CommandNotFoundException(`${this.module_name} ${operation}`);
+            throw new CommandNotFoundException(`${this.module_info.module_name} ${operation}`);
         }
 
         return this.ops[operation].execute(args);
@@ -137,6 +160,6 @@ export class Operation {
 
         // 执行指令
         let result = this.core.apply(this, args);
-        return result === null ? {code: 1} : result;
+        return result === null ? { code: 1 } : result;
     }
 }
