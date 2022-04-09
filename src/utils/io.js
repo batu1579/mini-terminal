@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:58:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 02:22:00
+ * @LastTime: 2022-04-09 17:25:30
  * @FilePath: \\src\\utils\\io.js
  * @Description: 模拟输入输出函数
  */
@@ -125,6 +125,31 @@ export function getInput(
         }
         // 防止查找过于频繁
         sleep(200);
+    }
+}
+
+/**
+ * @param {Array} array 数据数组，每个元素需要是字符串，如果不是会调用 toString 方法来转换
+ * @param {String} template 每行模板，通过 {{ data }} 来标记要填充数据的位置
+ * @param {Number} input_box_index 输入框索引，用来定位输入框
+ * @param {String} package_name 要检测的软件包名
+ * @description: 
+ */
+export function printList(
+    array,
+    template = " - {{ data }}",
+    input_box_index = INPUT_BOX_INDEX,
+    package_name = PACKAGE_NAME
+) {
+    let data = "";
+    for (let i = 0; i < array.length; i++) {
+        data = array[i].toString();
+        printStr(
+            template.replace(/\{\{.*?\}\}/g, data),
+            "\n",
+            input_box_index,
+            package_name
+        );
     }
 }
 
