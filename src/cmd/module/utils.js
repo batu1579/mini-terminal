@@ -2,11 +2,12 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-09 23:36:22
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 00:07:05
+ * @LastTime: 2022-04-10 00:35:43
  * @FilePath: \\src\\cmd\\module\\utils.js
  * @Description: 常用工具模块
  */
 
+import { GLOBAL_VARIABLE } from "../../global";
 import { Module, Operation } from "../../lib/base_module";
 import { requiredArgument } from "../../utils/argument";
 import { printStr } from "../../utils/io";
@@ -25,6 +26,25 @@ let ops = {
             return {
                 code: 1,
                 message: "print text to terminal"
+            };
+        }
+    ),
+    "set": new Operation(
+        {
+            "description": "手动设置全局变量",
+            "arguments": {
+                "arg_name": "要设置的全局变量名",
+                "value": "要存放的值"
+            }
+        },
+        (
+            arg_name = requiredArgument("arg_name"),
+            value = requiredArgument("value")
+        ) => {
+            GLOBAL_VARIABLE[arg_name] = value;
+            return {
+                code: 1,
+                message: `set global variable ${arg_name}`
             };
         }
     )
