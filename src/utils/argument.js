@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-07 22:23:14
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 15:33:44
+ * @LastTime: 2022-04-09 20:02:09
  * @FilePath: \\src\\utils\\argument.js
  * @Description: 函数参数相关的工具方法
  */
@@ -26,13 +26,13 @@ export function getFunctionArguments(func) {
 }
 
 export function requiredArgument(argument_name) {
-    let caller_name = (new Error()).stack.split("\n")[2].replace(/^\s+|\s+$/gm,'').split(" ")[1];
-    throw new MissingArgumentException(argument_name, caller_name);
+    // let caller_name = (new Error()).stack.split("\n")[2].replace(/^\s+|\s+$/gm,'').split(" ")[1];
+    throw new MissingArgumentException(argument_name);
 }
 
 class MissingArgumentException extends FunctionException {
-    constructor(argument_name, caller_name) {
-        super(`argument ${argument_name} of ${caller_name} is required`);
+    constructor(argument_name) {
+        super(`Argument ${argument_name} is required`);
         this.name = "MissingArgumentException";
     }
 }
