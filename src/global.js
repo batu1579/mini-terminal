@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 21:03:08
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 23:07:46
+ * @LastTime: 2022-04-10 01:13:24
  * @FilePath: \\src\\global.js
  * @Description: 全局常量
  */
@@ -71,6 +71,13 @@ if (USER_VARIABLE === undefined || USER_VARIABLE.replace(/\s/g, "") === "") {
         throw new ArgumentException("USER_VARIABLE must be a JSON string");
     }
 }
+
+// 设置默认全局变量字段
+export const GLOBAL_VARIABLE = Object.assign({
+    "HAMI_TOKEN": "",
+    "ROBOT_LIST": {},
+    "SCRIPT_LIST": {}
+}, USER_VARIABLE)
 
 if (LAUNCH_COMMAND === undefined || LAUNCH_COMMAND === "") {
     LAUNCH_COMMAND = [];
