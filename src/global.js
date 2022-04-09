@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 21:03:08
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 22:51:47
+ * @LastTime: 2022-04-09 23:07:46
  * @FilePath: \\src\\global.js
  * @Description: 全局常量
  */
@@ -29,6 +29,9 @@ export const {
     HISTORY_SIZE,
     CODE_STYLE,
     SHOW_CONSOLE,
+} = hamibot.env;
+
+export let {
     USER_ALIAS,
     USER_VARIABLE,
     LAUNCH_COMMAND
@@ -49,7 +52,7 @@ if (!/^\d+$/.test(HISTORY_SIZE) || Number(HISTORY_SIZE) <= 0) {
     throw new ArgumentException("HISTORY_SIZE must be a number and must be greater than 0");
 }
 
-if (USER_ALIAS === null || USER_ALIAS === "") {
+if (USER_ALIAS === undefined || USER_ALIAS.replace(/\s/g, "") === "") {
     USER_ALIAS = "";
 } else {
     try {
@@ -59,7 +62,7 @@ if (USER_ALIAS === null || USER_ALIAS === "") {
     }
 }
 
-if (USER_VARIABLE === null || USER_VARIABLE === "") {
+if (USER_VARIABLE === undefined || USER_VARIABLE.replace(/\s/g, "") === "") {
     USER_VARIABLE = "";
 } else {
     try {
@@ -69,7 +72,7 @@ if (USER_VARIABLE === null || USER_VARIABLE === "") {
     }
 }
 
-if (LAUNCH_COMMAND === null || LAUNCH_COMMAND === "") {
+if (LAUNCH_COMMAND === undefined || LAUNCH_COMMAND === "") {
     LAUNCH_COMMAND = [];
 } else {
     LAUNCH_COMMAND = LAUNCH_COMMAND
