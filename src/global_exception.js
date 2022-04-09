@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 16:09:50
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 00:32:59
+ * @LastTime: 2022-04-09 20:03:16
  * @FilePath: \\src\\global_exception.js
  * @Description: 全局异常类
  */
@@ -23,7 +23,7 @@ class BasePermissionException extends BaseException {
 
 export class PermissionObtainingFailure extends BasePermissionException {
     constructor(permission) {
-        super(permission + "obtaining failure");
+        super(`${permission} obtaining failure`);
         this.name = "PermissionObtainingFailure";
     }
 }
@@ -39,5 +39,19 @@ export class FunctionException extends BaseException {
     constructor(message) {
         super("Function Exception", message);
         this.name = 'FunctionException';
+    }
+}
+
+class HTTPException extends BaseException {
+    constructor(message) {
+        super("HTTP Exception", message);
+        this.name = 'HTTPException';
+    }
+}
+
+export class RequestFailure extends HTTPException {
+    constructor(url, state_code) {
+        super(`Failed to request ${url}, state code ${state_code}`);
+        this.name = 'RequestFailure';
     }
 }
