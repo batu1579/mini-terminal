@@ -2,13 +2,13 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 18:10:21
+ * @LastTime: 2022-04-09 20:16:43
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
 import { HISTORY } from '../global';
 import { state_code } from './style';
-import { modules } from '../cmd/operation';
+import { modules } from '../cmd/module_manager';
 import { alias_lookup_table } from '../cmd/alias';
 
 import { Logger } from '../utils/logger';
@@ -46,6 +46,7 @@ export class Terminal {
                 // 返回正常状态码时无操作
                 state = state_code.noerror;
             } else if (result.code === -1) {
+                this.logger(result.message);
                 printStr(`Error: ${result.message}`);
                 state = state_code.error;
             } else if (result.code === 0) {
@@ -53,7 +54,9 @@ export class Terminal {
                 break;
             } else {
                 // 返回其他状态码时显示告警信息
-                printStr(!result.message ? `Error code: ${result.code}` : result.message)
+                let message = !result.message ? `Error code: ${result.code}` : result.message
+                this.logger(message);
+                printStr(message);
                 state = state_code.warn;
             }
         }
