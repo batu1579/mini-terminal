@@ -21,7 +21,7 @@ export const LONG_WAIT_MS = 1000;
 
 export const HISTORY = new History(HISTORY_SIZE);
 
-// ---------------------------- Configuration ---------------------------------
+// ---------------------------- Input Configuration ---------------------------------
 
 export const {
     APP_NAME,
@@ -30,6 +30,7 @@ export const {
     CODE_STYLE,
     SHOW_CONSOLE,
     USER_ALIAS,
+    USER_VARIABLE,
 } = hamibot.env;
 
 // ---------------------------- Verify Argument ---------------------------------
@@ -57,3 +58,12 @@ if (USER_ALIAS === null || USER_ALIAS === "") {
     }
 }
 
+if (USER_VARIABLE === null || USER_VARIABLE === "") {
+    USER_VARIABLE = "";
+} else {
+    try {
+        USER_VARIABLE = JSON.parse(USER_VARIABLE);
+    } catch(err) {
+        throw new ArgumentException("USER_VARIABLE must be a JSON string");
+    }
+}
