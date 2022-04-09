@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 23:14:03
+ * @LastTime: 2022-04-09 23:19:10
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -12,7 +12,7 @@ import { modules } from '../cmd/module_manager';
 import { alias_lookup_table } from '../cmd/alias';
 
 import { Logger } from '../utils/logger';
-import { getInput, printStr } from '../utils/io';
+import { getInput, printStr, clearScreen } from '../utils/io';
 import { OperationNotFoundException, FormatException } from './terminal_exception';
 
 export class Terminal {
@@ -63,7 +63,7 @@ export class Terminal {
         } else if (result.code === -1) {
             // 返回已成状态码时记录到日志同时输出错误信息到终端
             this.logger.error(result.message);
-            printStr(`Error: ${result.message}`);
+            printStr(`${result.message[0] != "[" ? "Error: " : ""}${result.message}`);
             this.state = state_code.error;
         } else if (result.code === 0) {
             // 返回关闭状态码时退出终端
