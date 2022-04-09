@@ -45,6 +45,13 @@
     "help": "用来提前定义全局变量，可以免去手动输入或者粘贴（需要匹配系统指定的变量名）"
   },
   {
+    "name": "LAUNCH_COMMAND",
+    "type": "textarea",
+    "label": "启动自动运行的指令",
+    "placeholder": "terminal version;",
+    "help": "用来定义启动时自动运行的指令（每一句以分号结尾）"
+  },
+  {
     "name": "SHOW_CONSOLE",
     "type": "checkbox",
     "label": "显示控制台"

@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 21:03:08
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 04:01:50
+ * @LastTime: 2022-04-09 21:42:27
  * @FilePath: \\src\\global.js
  * @Description: 全局常量
  */
@@ -11,7 +11,7 @@ import { ArgumentException } from "./global_exception";
 
 import { History } from "./utils/history";
 
-export const VERSION = "1.1.0";
+export const VERSION = "1.1.1";
 
 export const LISTENER_INTERVAL = 100;
 
@@ -31,6 +31,7 @@ export const {
     SHOW_CONSOLE,
     USER_ALIAS,
     USER_VARIABLE,
+    LAUNCH_COMMAND
 } = hamibot.env;
 
 // ---------------------------- Verify Argument ---------------------------------
@@ -66,4 +67,13 @@ if (USER_VARIABLE === null || USER_VARIABLE === "") {
     } catch(err) {
         throw new ArgumentException("USER_VARIABLE must be a JSON string");
     }
+}
+
+if (LAUNCH_COMMAND === null || LAUNCH_COMMAND === "") {
+    LAUNCH_COMMAND = [];
+} else {
+    LAUNCH_COMMAND = LAUNCH_COMMAND
+        .split(/;|；/)
+        .map((i) => i.replace(/^\s+|\s+$/gm, ""))
+        .filter(i => i !== "");
 }

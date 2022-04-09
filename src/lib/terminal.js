@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 20:16:43
+ * @LastTime: 2022-04-09 22:47:57
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -18,51 +18,65 @@ import { OperationNotFoundException, FormatException } from './terminal_exceptio
 export class Terminal {
     constructor() {
         this.logger = new Logger(`Terminal`);
+        this.state = state_code.noerror;
+        this.placeholder = "";
     }
 
     launch() {
         // main loop
-        let statement, result;
-        let state = state_code.noerror;
-        let placeholder = "";
+        let statement;
 
         while (true) {
             // 获取用户输入的指令
-            statement = getInput(`[ ${state} ]$ `, placeholder);
-            try {
-                result = this.execute(statement);
-            } catch (err) {
-                // 抛出异常时输出异常信息
-                result = {
-                    code: -1,
-                    message: err.message
-                }
-            }
-            this.logger.verbose(`statement result: ${JSON.stringify(result)}`);
-
-            placeholder = result.fill_command ? result.fill_command : "";
-
-            if (result.code === 1) {
-                // 返回正常状态码时无操作
-                state = state_code.noerror;
-            } else if (result.code === -1) {
-                this.logger(result.message);
-                printStr(`Error: ${result.message}`);
-                state = state_code.error;
-            } else if (result.code === 0) {
-                // 返回关闭状态码时退出终端
-                break;
-            } else {
-                // 返回其他状态码时显示告警信息
-                let message = !result.message ? `Error code: ${result.code}` : result.message
-                this.logger(message);
-                printStr(message);
-                state = state_code.warn;
-            }
+            statement = getInput(`[ ${this.state} ]$ `, this.placeholder);
+            this.execute_statement(statement);
         }
     }
 
-    execute(statement) {
+    exit_terminal() {
+        // 退出终端
+        clearScreen();
+        printStr(":) see you later ...");
+        sleep(1000);
+        clearScreen();
+        exit();
+    }
+
+    execute_statement(statement) {
+        let result;
+        try {
+            result = this.__execute__(statement);
+        } catch (err) {
+            // 抛出异常时输出异常信息
+            result = {
+                code: -1,
+                message: err.message
+            }
+        }
+        this.logger.verbose(`statement result: ${JSON.stringify(result)}`);
+
+        this.placeholder = result.fill_command ? result.fill_command : "";
+
+        if (result.code === 1) {
+            // 返回正常状态码时无操作
+            this.state = state_code.noerror;
+        } else if (result.code === -1) {
+            this.logger(result.message);
+            printStr(`Error: ${result.message}`);
+            this.state = state_code.error;
+        } else if (result.code === 0) {
+            // 返回关闭状态码时退出终端
+            this.exit_terminal();
+        } else {
+            // 返回其他状态码时显示告警信息
+            let message = !result.message ? `Error code: ${result.code}` : result.message
+            this.logger(message);
+            printStr(message);
+            this.state = state_code.warn;
+        }
+    }
+
+    __execute__(statement) {
         this.logger.info(`statement detected: ${statement}`);
 
         // 过滤空语句
@@ -90,13 +104,13 @@ export class Terminal {
 
         if (!(modules_name in modules)) throw new OperationNotFoundException(modules_name);
 
-        let state = modules[modules_name].execute(params.replace(/^\s+|\s+$/gm, ""));
+        let state_obj = modules[modules_name].execute(params.replace(/^\s+|\s+$/gm, ""));
 
         // 添加历史记录
-        if (state.not_record !== true) {
+        if (state_obj.not_record !== true) {
             HISTORY.push(statement);
         }
 
-        return state;
+        return state_obj;
     }
 }
