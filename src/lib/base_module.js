@@ -2,14 +2,14 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-07 15:00:24
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-08 11:30:56
+ * @LastTime: 2022-04-09 18:44:06
  * @FilePath: \\src\\lib\\base_module.js
  * @Description: 模块基类
  */
 import { getFunctionArguments, requiredArgument } from "../utils/argument";
 import { printStr } from "../utils/io";
 import {
-    CommandNotFoundException,
+    OperationNotFoundException,
     TooManyArgumentsException,
     FormatException
 } from "./terminal_exception";
@@ -29,7 +29,27 @@ export class Module {
         this.ops = ops;
     }
 
+    showInfo(show_module = false) {
+        printStr(`Description: ${this.module_info.description}`);
+        if (show_module){            
+            let ops_list = [];
+            for (let key in this.ops) {
+                ops_list.push(
+                    ` - ${key}${this.ops[key] instanceof Module ? " ( Module )" : ""}`
+                );
+            }
+            printStr(`${ops_list.join("\n")}`);
+        }
+        return {
+            code: 1,
+            message: "show module info"
+        }
+    }
+
     execute(statement) {
+        if (statement == "") {
+            return this.showInfo();
+        }
         let pattern = /^([^\s]+)(?:\s(.+))?$/g;
         let result = pattern.exec(statement);
         if (!result) throw new FormatException();
@@ -38,29 +58,13 @@ export class Module {
         let args = result[2] ? result[2] : "";
 
         if (operation === "-h" || operation === "--help") {
-            printStr(`Description: ${this.module_info.description}`);
-            return {
-                code: 1,
-                message: "show module help"
-            }
+            return this.showInfo();
         } else if (operation === "-l" || operation === "--list") {
-            let ops_list = [];
-            for (let key in this.ops) {
-                if (this.ops[key] instanceof Module) {
-                    ops_list.push(` - ${key} ( Module )`);
-                } else {
-                    ops_list.push(` - ${key}`);
-                }
-            }
-            printStr(`${ops_list.join("\n")}`);
-            return {
-                code: 1,
-                message: "show module operation list"
-            }
+            return this.showInfo(true);
         }
 
         if (!(operation in this.ops)) {
-            throw new CommandNotFoundException(`${this.module_info.module_name} ${operation}`);
+            throw new OperationNotFoundException(`${this.module_info.module_name} ${operation}`);
         }
 
         return this.ops[operation].execute(args);

@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 16:15:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-07 23:19:41
+ * @LastTime: 2022-04-09 18:40:52
  * @FilePath: \\src\\lib\\terminal_exception.js
  * @Description: 终端异常
  */
@@ -15,10 +15,10 @@ class StatementException extends BaseException {
     }
 }
 
-export class CommandNotFoundException extends StatementException {
+export class OperationNotFoundException extends StatementException {
     constructor(command) {
-        super(`Command not found: ${command}`);
-        this.name = "CommandNotFoundException";
+        super(`${command} is not a operation or module`);
+        this.name = "OperationNotFoundException";
     }
 }
 
