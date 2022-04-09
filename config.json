@@ -31,6 +31,13 @@
     "help": "用来显示上一次运行的指令状态"
   },
   {
+    "name": "USER_ALIAS",
+    "type": "textarea",
+    "label": "自定义别名",
+    "placeholder": "{\"cls\": \"terminal clear\"}",
+    "help": "用来定义替换的指令，能减少要输入的文本量"
+  },
+  {
     "name": "SHOW_CONSOLE",
     "type": "checkbox",
     "label": "显示控制台"

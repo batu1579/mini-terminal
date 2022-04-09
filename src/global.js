@@ -29,6 +29,7 @@ export const {
     HISTORY_SIZE,
     CODE_STYLE,
     SHOW_CONSOLE,
+    USER_ALIAS,
 } = hamibot.env;
 
 // ---------------------------- Verify Argument ---------------------------------
@@ -45,3 +46,14 @@ if (!/^\d+$/.test(INPUT_BOX_INDEX) || Number(INPUT_BOX_INDEX) < 0) {
 if (!/^\d+$/.test(HISTORY_SIZE) || Number(HISTORY_SIZE) <= 0) {
     throw new ArgumentException("HISTORY_SIZE must be a number and must be greater than 0");
 }
+
+if (USER_ALIAS === null || USER_ALIAS === "") {
+    USER_ALIAS = "";
+} else {
+    try {
+        USER_ALIAS = JSON.parse(USER_ALIAS);
+    } catch(err) {
+        throw new ArgumentException("USER_ALIAS must be a JSON string");
+    }
+}
+
