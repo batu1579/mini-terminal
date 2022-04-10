@@ -28,7 +28,7 @@
 
 ## 可用指令
 
-指令逐渐多起来了，都放在说明文档里显得太混乱。可以在这里查看： [传送门](./src/cmd/docs/menu.md)
+指令逐渐多起来了，都放在说明文档里显得太混乱。可以在这里查看： [GitHub](https://github.com/batu1579/mini-terminal/blob/master/src/cmd/docs/menu.md) [Gitee](https://gitee.com/batu1579/mini-terminal/blob/master/src/cmd/docs/menu.md)
 
 ## 设置自启动指令
 
