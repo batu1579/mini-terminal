@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-09 23:36:22
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 00:35:43
+ * @LastTime: 2022-04-10 14:43:34
  * @FilePath: \\src\\cmd\\module\\utils.js
  * @Description: 常用工具模块
  */
@@ -17,11 +17,12 @@ let ops = {
         {
             "description": "在控制台输出字符串",
             "arguments": {
-                "text": "要输出的文本（如果想输出带空格的文本可以使用引号把文本括起来）",
+                "text": "要输出的文本，或者使用 '{{ 变量名 }}' 来显示全局变量（使用引号可以输出空格）",
                 "end_with": "以什么符号结尾（默认为回车）"
             }
         },
         (text = requiredArgument("text"), end_with = "\n") => {
+            text = text.replace(/{{\s?(.+?)\s?}}/g, ($1, $2) => {GLOBAL_VARIABLE[$2]});
             printStr(text, end_with);
             return {
                 code: 1,
