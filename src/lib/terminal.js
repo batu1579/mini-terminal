@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 23:19:10
+ * @LastTime: 2022-04-10 14:59:13
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -27,6 +27,10 @@ export class Terminal {
         let statement;
 
         while (true) {
+            // 末尾行不为空时换行
+            let lines = getWidget().text().split("\n");
+            if (lines[lines.length - 1] != "") printStr("");
+
             // 获取用户输入的指令
             statement = getInput(`[ ${this.state} ]$ `, this.placeholder);
             this.execute_statement(statement);
