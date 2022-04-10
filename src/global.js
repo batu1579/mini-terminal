@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 21:03:08
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 13:36:40
+ * @LastTime: 2022-04-10 16:40:58
  * @FilePath: \\src\\global.js
  * @Description: 全局常量
  */
@@ -12,7 +12,7 @@ import { ArgumentException } from "./global_exception";
 import { History } from "./utils/history";
 import { parse_config } from "./utils/parse_config";
 
-export const VERSION = "1.2.0";
+export const VERSION = "1.3.0";
 
 export const LISTENER_INTERVAL = 100;
 
