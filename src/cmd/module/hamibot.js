@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-08 11:33:45
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 14:01:17
+ * @LastTime: 2022-04-10 16:32:27
  * @FilePath: \\src\\cmd\\module\\hamibot.js
  * @Description: 远程操作hamibot的模块
  */
@@ -98,7 +98,7 @@ let robot_ops = {
             "description": "停止指定机器人正在运行的全部脚本",
             "arguments": {
                 "mode": "查找模式，可选值为 '-id' 或 '-name'",
-                "value": "mode 为 -id 时为机器人的 ID ，否则为机器人的名称（名称模式必须曾经通过指令获取过机器人列表）",
+                "value": "mode 为 '-id' 时为机器人的 ID ，否则为机器人的名称（名称模式必须曾经通过指令获取过机器人列表）",
                 "token": "指定调用时使用的令牌，可以使用 'hamibot set-token <token>' 指令提前设置"
             }
         },
@@ -158,9 +158,9 @@ let script_ops = {
             "arguments": {
                 "dev": "可选值为 '-d' 或 '-u' 可选。如果为 '-d' 则会尝试获取开发中的脚本",
                 "r_mode": "查找机器人的模式，可选值为 '-id' 或 '-name'",
-                "r_value": "mode 为 -id 时为机器人的 ID ，否则为机器人的名称（名称模式必须曾经通过指令获取过机器人列表）",
+                "r_value": "mode 为 '-id' 时为机器人的 ID ，否则为机器人的名称（名称模式必须曾经通过指令获取过机器人列表）",
                 "s_mode": "查找脚本的模式，可选值为 '-id' 或 '-name'",
-                "s_value": "mode 为 -id 时为脚本的 ID ，否则为脚本的名称（名称模式必须曾经通过指令获取过脚本列表）",
+                "s_value": "mode 为 '-id' 时为脚本的 ID ，否则为脚本的名称（名称模式必须曾经通过指令获取过脚本列表）",
                 "token": "指定调用时使用的令牌，可以使用 'hamibot set-token <token>' 指令提前设置"
             }
         },
@@ -206,9 +206,9 @@ let script_ops = {
             "arguments": {
                 "dev": "可选值为 '-d' 或 '-u' 可选。如果为 '-d' 则会尝试获取开发中的脚本",
                 "r_mode": "查找机器人的模式，可选值为 '-id' 或 '-name'",
-                "r_value": "mode 为 -id 时为机器人的 ID ，否则为机器人的名称（名称模式必须曾经通过指令获取过机器人列表）",
+                "r_value": "mode 为 '-id' 时为机器人的 ID ，否则为机器人的名称（名称模式必须曾经通过指令获取过机器人列表）",
                 "s_mode": "查找脚本的模式，可选值为 '-id' 或 '-name'",
-                "s_value": "mode 为 -id 时为脚本的 ID ，否则为脚本的名称（名称模式必须曾经通过指令获取过脚本列表）",
+                "s_value": "mode 为 '-id' 时为脚本的 ID ，否则为脚本的名称（名称模式必须曾经通过指令获取过脚本列表）",
                 "token": "指定调用时使用的令牌，可以使用 'hamibot set-token <token>' 指令提前设置"
             }
         },
