@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-21 14:52:46
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 14:59:13
+ * @LastTime: 2022-04-10 17:49:23
  * @FilePath: \\src\\lib\\terminal.js
  * @Description: 监听输入
  */
@@ -12,7 +12,7 @@ import { modules } from '../cmd/module_manager';
 import { alias_lookup_table } from '../cmd/alias';
 
 import { Logger } from '../utils/logger';
-import { getInput, printStr, clearScreen } from '../utils/io';
+import { getInput, printStr, clearScreen, getWidget } from '../utils/io';
 import { OperationNotFoundException, FormatException } from './terminal_exception';
 
 export class Terminal {
