@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-02-04 21:03:08
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 01:13:24
+ * @LastTime: 2022-04-10 13:36:40
  * @FilePath: \\src\\global.js
  * @Description: 全局常量
  */
@@ -10,6 +10,7 @@
 import { ArgumentException } from "./global_exception";
 
 import { History } from "./utils/history";
+import { parse_config } from "./utils/parse_config";
 
 export const VERSION = "1.2.0";
 
@@ -53,23 +54,15 @@ if (!/^\d+$/.test(HISTORY_SIZE) || Number(HISTORY_SIZE) <= 0) {
 }
 
 if (USER_ALIAS === undefined || USER_ALIAS.replace(/\s/g, "") === "") {
-    USER_ALIAS = "";
+    USER_ALIAS = {};
 } else {
-    try {
-        USER_ALIAS = JSON.parse(USER_ALIAS);
-    } catch(err) {
-        throw new ArgumentException("USER_ALIAS must be a JSON string");
-    }
+    USER_ALIAS = parse_config(USER_ALIAS);
 }
 
 if (USER_VARIABLE === undefined || USER_VARIABLE.replace(/\s/g, "") === "") {
-    USER_VARIABLE = "";
+    USER_VARIABLE = {};
 } else {
-    try {
-        USER_VARIABLE = JSON.parse(USER_VARIABLE);
-    } catch(err) {
-        throw new ArgumentException("USER_VARIABLE must be a JSON string");
-    }
+    USER_VARIABLE = parse_config(USER_VARIABLE);
 }
 
 // 设置默认全局变量字段

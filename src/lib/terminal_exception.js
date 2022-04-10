@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-02 16:15:40
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-09 18:40:52
+ * @LastTime: 2022-04-10 13:35:15
  * @FilePath: \\src\\lib\\terminal_exception.js
  * @Description: 终端异常
  */
@@ -32,7 +32,7 @@ export class TooManyArgumentsException extends StatementException {
 export class FormatException extends StatementException {
     constructor(
         format = "<module> <operation>[ <arguments>]",
-        message = "The statement format is incorrect."
+        message = "The statement format is invalid."
     ) {
         super(`${message} The format should be: ${format}`);
         this.name = "FormatException";

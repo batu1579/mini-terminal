@@ -34,15 +34,15 @@
     "name": "USER_ALIAS",
     "type": "textarea",
     "label": "自定义别名",
-    "placeholder": "{\"cls\": \"terminal clear\"}",
-    "help": "用来定义替换的指令，能减少要输入的文本量"
+    "placeholder": "cls: terminal clear;",
+    "help": "用来定义替换的指令，能减少要输入的文本量，格式为 '<alias>: <statement>;'"
   },
   {
     "name": "USER_VARIABLE",
     "type": "textarea",
     "label": "自定义全局变量",
-    "placeholder": "{\"hamibot_token\": \"hmp_...\"}",
-    "help": "用来提前定义全局变量，可以免去手动输入或者粘贴（需要匹配系统指定的变量名）"
+    "placeholder": "HAMI_TOKEN: hmp_...;",
+    "help": "用来提前定义全局变量，可以免去手动输入或者粘贴（需要匹配系统指定的变量名），格式为 '<var name>: <value>;'"
   },
   {
     "name": "LAUNCH_COMMAND",
