@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-09 23:36:22
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 14:43:34
+ * @LastTime: 2022-04-10 15:01:15
  * @FilePath: \\src\\cmd\\module\\utils.js
  * @Description: 常用工具模块
  */
@@ -22,7 +22,23 @@ let ops = {
             }
         },
         (text = requiredArgument("text"), end_with = "\n") => {
-            text = text.replace(/{{\s?(.+?)\s?}}/g, ($1, $2) => {GLOBAL_VARIABLE[$2]});
+            text = text.replace(/{{\s?(.+?)\s?}}/g, ($1, $2) => {
+                let data = GLOBAL_VARIABLE[$2]
+                if (typeof data === "Array") {
+                    let temp = "\n";
+                    for (let i = 0; i < data.length; i++) {
+                        temp += ` - ${data[i].toString()}\n`;
+                    }
+                    data = temp;
+                } else if (typeof data === "Object") {
+                    let temp = "\n";
+                    for (let key in data) {
+                        temp += ` ${key}: ${data[key].toString()}\n`;
+                    }
+                    data = temp;
+                }
+                return data;
+            });
             printStr(text, end_with);
             return {
                 code: 1,
