@@ -2,7 +2,7 @@
  * @Author: BATU1579
  * @CreateDate: 2022-04-08 11:33:45
  * @LastEditor: BATU1579
- * @LastTime: 2022-04-10 01:40:36
+ * @LastTime: 2022-04-10 14:01:17
  * @FilePath: \\src\\cmd\\module\\hamibot.js
  * @Description: 远程操作hamibot的模块
  */
@@ -134,7 +134,7 @@ let script_ops = {
             dev = "-u",
             token = GLOBAL_VARIABLE["HAMI_TOKEN"]
         ) => {
-            let data = requestToHamibot(`/v1/${dev == "-d" ? "dev" : ""}scripts`, token);
+            let data = requestToHamibot(`/v1/${dev == "-d" ? "dev" : ""}scripts`, token)["items"];
             let script_list = {}
             for (let i = 0; i < data.length; i++) {
                 let item = data[i];
